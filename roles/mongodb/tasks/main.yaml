@@ -1,0 +1,30 @@
+#from mongodb.yaml tasks
+
+- name: Copy mongodb repo to the remote server.
+  ansible.builtin.copy:
+    src: mongo.repo
+    # src- Local path to a file to copy to the remote server.
+    dest: /etc/yum.repos.d/mongo.repo
+    # dest-Remote absolute path where the file should be copied to.
+
+- name: Install MongoDB (dnf install mongodb-org -y )
+  ansible.builtin.package:
+    name: mongodb-org
+    # name-Package name, or package specifier with version.
+    state: present
+    # state-Whether to install (present), or remove (absent) a package.
+
+- name: Allow remote connections (Update listen address from 127.0.0.1 to 0.0.0.0 in /etc/mongod.conf)
+  ansible.builtin.replace:
+    path: /etc/mongod.conf
+    # path:The file to modify.(required)
+    regexp: "127.0.0.1"
+    # regexp:The regular expression to look for in the contents of the file.(required)
+    replace: "0.0.0.0"
+    # replace:The string to replace regexp matches.
+
+- name: start and enable mongod
+  ansible.builtin.service:
+    name: mongod
+    state: started
+    enabled: true
