@@ -1,0 +1,7 @@
+---
+- name: "Setting up {{component}} server" #Setting up mongodb server
+  hosts: "{{component}}"
+  become: yes
+  roles: 
+  - "{{component}}"
+  #from mongodb.yaml 
