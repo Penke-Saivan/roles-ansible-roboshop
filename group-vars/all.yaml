@@ -1,2 +1,3 @@
 MONGO_DB_HOST: mongodb.believeinyou.fun
 REDIS_HOST: redis.believeinyou.fun
+CATALOGUE_HOST: catalogue.believeinyou.fun
