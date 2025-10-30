@@ -8,3 +8,24 @@
   ansible.builtin.import_role:
     name: common
     tasks_from: node-js_setup.yaml
+
+- name: Copy mongodb repo to the remote server.
+  ansible.builtin.copy:
+    src: mongo.repo
+    # src- Local path to a file to copy to the remote server.
+    dest: /etc/yum.repos.d/mongo.repo
+    # dest-Remote absolute path where the file should be copied to.
+
+- name: install mongodb-mongosh client
+  ansible.builtin.dnf:
+    name: mongodb-mongosh
+    state: present
+
+- name: To check cataogue products are already loaded
+  ansible.builltin.command: mongosh mongodb.believeinyou.fun --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+  register: catalogue_output
+
+- name: Load Master Data of the List of products we want to sell and their quantity information also there in the same master data.
+  ansible.builltin.command: mongosh --host mongodb.believeinyou.fun < /app/db/master-data.js
+  when: catalogue_output.stdout | int < 0 # to change catalogue_output.stdout which is string,  to equiavalent of "-1" - > -1
+
