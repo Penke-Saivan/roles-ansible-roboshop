@@ -1,0 +1,36 @@
+#Parameterizing from Cart to {{component}}
+    - name: Add application User- System User
+      ansible.builtin.user:
+        name: roboshop
+        comment: roboshop system user
+        home: /app
+        system: true
+        shell: /sbin/nologin
+
+    #Removing app directory if already exists
+    - name: Lets remove an app directory if already exists.
+      ansible.builtin.file:
+        path: /app
+        state: absent
+
+    - name: Lets setup an app directory.
+      ansible.builtin.file:
+        path: /app
+        state: directory
+
+    #Removing {{component}} file
+    - name: Lets remove a {{component}} file
+      ansible.builtin.file:
+        path: /tmp/{{component}}.zip
+        state: absent
+
+    - name: Download the application code
+      ansible.builtin.get_url:
+        url: https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip
+        dest: /tmp/{{component}}.zip
+
+    - name: Extract {{component}} to application /app
+      ansible.builtin.unarchive:
+        src: /tmp/{{component}}.zip
+        dest: /app
+        remote_src: yes
