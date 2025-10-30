@@ -3,3 +3,7 @@ REDIS_HOST: redis.believeinyou.fun
 CATALOGUE_HOST: catalogue.believeinyou.fun
 CART_HOST: cart.believeinyou.fun
 MYSQL_HOST: mysql.believeinyou.fun
+USER_HOST: user.believeinyou.fun
+RABBITMQ_HOST: rabbitmq.believeinyou.fun
+SHIPPING_HOST: shipping.believeinyou.fun
+PAYMENT_HOST: payment.believeinyou.fun

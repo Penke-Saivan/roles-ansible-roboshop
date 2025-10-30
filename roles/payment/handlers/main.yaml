@@ -1,0 +1,6 @@
+---
+- name: daemon reload
+  ansible.builtin.systemd_service:
+    daemon_reload: true
+#notified 
+# If this file - /etc/systemd/system/catalogue.service chnages then only need to reload otherwose no need which brings the need for handlers folder
