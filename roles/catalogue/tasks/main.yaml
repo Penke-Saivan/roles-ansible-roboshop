@@ -22,11 +22,11 @@
     state: present
 
 - name: To check cataogue products are already loaded
-  ansible.builltin.command: mongosh {{ MONGO_DB_HOST }} --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
+  ansible.builtin.command: mongosh {{ MONGO_DB_HOST }} --quiet --eval "db.getMongo().getDBNames().indexOf('catalogue')"
   register: catalogue_output
 
 - name: Load Master Data of the List of products we want to sell and their quantity information also there in the same master data.
-  ansible.builltin.command: mongosh --host {{ MONGO_DB_HOST }} < /app/db/master-data.js
+  ansible.builtin.command: mongosh --host {{ MONGO_DB_HOST }} < /app/db/master-data.js
   when: catalogue_output.stdout | int < 0 # to change catalogue_output.stdout which is string,  to equiavalent of "-1" - > -1
 
 - name: system setup
