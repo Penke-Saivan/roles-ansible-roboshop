@@ -1,0 +1,8 @@
+---
+- name: "Setting up include-import server" #Setting up mongodb server
+  hosts: local
+  connection: local
+  become: yes
+  roles: 
+  - include-import
+  #from mongodb.yaml 

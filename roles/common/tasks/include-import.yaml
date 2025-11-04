@@ -1,0 +1,7 @@
+- name: Saying Hi from include
+  ansible.builtin.debug:
+    msg: "Hi from inlcude "
+
+- name: Saying Hi from include again
+ansible.builtin.debug:
+  msg: "Hi from inlcude but with syntax issue "
